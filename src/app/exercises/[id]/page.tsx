@@ -1,19 +1,20 @@
-import React from "react";
-import Link from "next/link";
 import { exercises } from "@/lib/exercises";
+import Link from "next/link";
 
-type Props = {
-  params: { id: string };
-};
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
 
-const ExerciseArea = ({ params }: Props) => {
-  const exercise = exercises.find((ex) => params.id === ex.id);
-  if (!exercise) {
-    throw new Error("Depois eu resolvo!");
-  }
+export default async function ExercisePage({ params }: PageProps) {
+  const { id } = await params;
+  const exercise = exercises.find((ex) => ex.id === id);
+
+  if (!exercise) throw new Error("Depois eu resolvo!");
 
   return (
-    <div className="flex justify-center items-center flex-col w-[100%]">
+    <div className="flex justify-center items-center flex-col w-full">
       <h1 className="text-[1.7em] font-semibold text-center mt-8">
         {exercise.exercise.toUpperCase()}
       </h1>
@@ -27,7 +28,7 @@ const ExerciseArea = ({ params }: Props) => {
             className="w-[310px] h-[154px] aspect-video border-[#101111] border-[0.2em]"
           ></iframe>
         </div>
-        <p className="self-start mt-[1em] ml-[0.46em] text-neutral text-[#FFF] font-medium">
+        <p className="self-start mt-[1em] ml-[0.46em] text-[#FFF] font-medium">
           Créditos:{" "}
           <a href={exercise.channelLink} className="text-[#e0c5c5]">
             {exercise.credits}
@@ -49,17 +50,24 @@ const ExerciseArea = ({ params }: Props) => {
             : "FÁCIL"}
         </span>
       </div>
+
       <p className="mt-[0.8em] ml-[0.3em]">
         <strong>SOBRE: </strong>
         {exercise.description}
       </p>
+
       <div className="self-start ml-[0.3em] mt-[1em] mb-[1em]">
-        <span><strong>Músculo(s) primário(s): </strong> {exercise.primaryMuscleGroup}</span>
+        <span>
+          <strong>Músculo(s) primário(s): </strong> {exercise.primaryMuscleGroup}
+        </span>
         <br />
         {exercise.primaryMuscleGroup !== "Nenhum" && (
-          <span><strong>Músculo(s) secundário(s): </strong> {exercise.secondaryMuscleGroup}</span>
+          <span>
+            <strong>Músculo(s) secundário(s): </strong> {exercise.secondaryMuscleGroup}
+          </span>
         )}
       </div>
+
       <div>
         <h2 className="font-semibold text-center text-[1.3em]">
           Passo a passo
@@ -75,9 +83,12 @@ const ExerciseArea = ({ params }: Props) => {
           ))}
         </ol>
       </div>
-        <Link href="/" className="mt-[1.5em] mb-[1.5em]"><span className="text-neutral-800 font-bold text-[1.3em] underline">VOLTAR</span></Link>
+
+      <Link href="/" className="mt-[1.5em] mb-[1.5em]">
+        <span className="text-neutral-800 font-bold text-[1.3em] underline">
+          VOLTAR
+        </span>
+      </Link>
     </div>
   );
-};
-
-export default ExerciseArea;
+}
