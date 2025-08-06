@@ -44,7 +44,7 @@ const ExercisesList = ({ debouncedSearch }: Search) => {
             className="group block"
           >
             <div
-              className="w-[24em] md:w-[21em] max-w-full h-[20em] cursor-pointer
+              className="w-[22em] md:w-[21em] max-w-full h-[20em] cursor-pointer
                group-hover:opacity-50
                transition-all ease-in-out duration-300
                flex flex-col justify-between items-center
