@@ -35,57 +35,72 @@ const ExercisesList = ({ debouncedSearch }: Search) => {
   }, [debouncedSearch]);
 
   return (
-    <div className="w-full flex flex-wrap justify-center gap-4 px-2 mb-2 lg:grid lg:grid-cols-2 lg:justify-items-center">
-      {currentExercises.map((exercise) => (
-        <Link key={exercise.id} href={`/exercises/${exercise.id}`}>
-          <div className="w-[24em] lg:w-[25em] max-w-full h-[20em] flex flex-col justify-between items-center border-black border-[0.2em] border-solid mt-5 p-3 bg-neutral-200">
-            <div className="w-full h-40 flex-shrink-0">
-              <Image
-                src={`/exercises/${exercise.id}.webp`}
-                alt={exercise.exercise}
-                width={500}
-                height={200}
-                className="w-full h-full object-cover block border-black border-[0.4em] border-solid"
-              />
-            </div>
+    <div className="w-[100%]">
+      <div className="w-full flex flex-wrap justify-center gap-4 px-2 mb-2 md:grid md:grid-cols-2 lg:grid-cols-3 md:justify-items-center">
+        {currentExercises.map((exercise) => (
+          <Link
+            key={exercise.id}
+            href={`/exercises/${exercise.id}`}
+            className="group block"
+          >
+            <div
+              className="w-[24em] md:w-[21em] max-w-full h-[20em] cursor-pointer
+               group-hover:opacity-50
+               transition-all ease-in-out duration-300
+               flex flex-col justify-between items-center
+               border-black border-[0.2em] border-solid
+               mt-5 p-3 bg-neutral-200"
+            >
+              <div className="w-full h-40 flex-shrink-0">
+                <Image
+                  src={`/exercises/${exercise.id}.webp`}
+                  alt={exercise.exercise}
+                  width={500}
+                  height={200}
+                  className="w-full h-full object-cover block border-black border-[0.4em] border-solid"
+                />
+              </div>
 
-            <div className="w-full flex flex-col flex-grow justify-between overflow-hidden mt-2">
-              <h3 className="font-semibold text-xl text-center break-words line-clamp-2 leading-tight px-2">
-                {exercise.exercise}
-              </h3>
+              <div className="w-full flex flex-col flex-grow justify-between overflow-hidden mt-2">
+                <h3 className="font-semibold text-xl text-center break-words line-clamp-2 leading-tight px-2">
+                  {exercise.exercise}
+                </h3>
 
-              <div className="w-full px-2 mb-[1em] text-start overflow-hidden">
-                <p className="text-lg font-medium break-words line-clamp-1 leading-snug">
-                  {exercise.primaryMuscleGroup}
-                </p>
+                <div className="w-full px-2 mb-[1em] text-start overflow-hidden">
+                  <p className="text-lg font-medium break-words line-clamp-1 leading-snug">
+                    {exercise.primaryMuscleGroup}
+                  </p>
 
-                {exercise.secondaryMuscleGroup !== "Nenhum" && (
-                  <span className="text-sm break-words line-clamp-1 leading-snug text-neutral-700">
-                    {exercise.secondaryMuscleGroup}
-                  </span>
-                )}
+                  {exercise.secondaryMuscleGroup !== "Nenhum" && (
+                    <span className="text-sm break-words line-clamp-1 leading-snug text-neutral-700">
+                      {exercise.secondaryMuscleGroup}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </Link>
-      ))}
-
+          </Link>
+        ))}
+      </div>
       {totalPages > 1 && (
-        <div className="w-full flex justify-center mt-4 gap-4">
+        <div
+          className="w-72 mx-auto flex items-center justify-center gap-4
+               text-neutral-50 bg-neutral-800 rounded-lg mt-4 mb-4"
+        >
           <button
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
             disabled={currentPage === 1}
+            className="cursor-pointer"
           >
             Anterior
           </button>
-
           <span>
             Página {currentPage} de {totalPages}
           </span>
-
           <button
             onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
             disabled={currentPage === totalPages}
+            className="cursor-pointer"
           >
             Próxima
           </button>

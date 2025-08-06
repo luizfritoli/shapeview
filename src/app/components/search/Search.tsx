@@ -1,21 +1,28 @@
-"use client"
+"use client";
 
 import ExercisesList from "./ExercisesList";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Search = () => {
-  const [search, setSearch] = useState<string>("")
-  const [debouncedSearch, setDebouncedSearch] = useState<string>("")
+  const [search, setSearch] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedSearch(search)
-    }, 550)
-    return () => clearTimeout(handler)
-  }, [search])
+      setDebouncedSearch(search);
+    }, 550);
+    return () => clearTimeout(handler);
+  }, [search]);
 
   return (
-    <div className="flex justify-center items-center flex-col">
+    <motion.div
+      initial={{ opacity: 0, y: -30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ ease: "easeInOut", duration: 0.8 }}
+      viewport={{ once: true}}
+      className="flex justify-center items-center flex-col"
+    >
       <h2 className="text-[2.2em] font-semibold">Exercícios</h2>
       <input
         type="text"
@@ -24,7 +31,7 @@ const Search = () => {
         className="rounded-sm w-[90%] mt-[1em] border-black border-[0.22em]"
       />
       <ExercisesList debouncedSearch={debouncedSearch} />
-    </div>
+    </motion.div>
   );
 };
 

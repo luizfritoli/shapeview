@@ -14,7 +14,7 @@ const Footer = () => {
         página. <strong>Escrito com Visual Studio Code</strong>.
       </p>
       <span className="flex justify-center">
-        <a href="https://luizfritoli.github.io/portfolio-luizfritoli/">
+        <a href="https://luizfritoli.github.io/portfolio-luizfritoli/" target="_blank">
           <Image
             src="/logo/logo_luiz.png"
             width={200}
